@@ -2,51 +2,6 @@
 ; https://www-inst.eecs.berkeley.edu//~cs61a/su10/notes/week1a.pdf
 ; https://www-inst.eecs.berkeley.edu//~cs61a/su10/notes/week1a_sol.pdf
 
-(define (om foo)
-  (word foo 'nom))
-
-; nom
-(om 'nom)
-; (om nom)
-; ('om 'nom)
-(word 'a 'bc)
-; (word 'a '(bc))
-(sentence 'a 'bc)
-(sentence 'a '(bc d))
-(sentence '(a b) '(c d))
-
-(define (abs n) ((if (< n 0) - +) n))
-
-; (define (abs x)
-;     (cond ((= x 0) 0)
-;           ((< x 0) (­ x))
-;           (else x)))
-
-(abs -1)
-(abs 42)
-(abs -666)
-
-; (define x 5)
-; (define (x) 5)
-
-(define area-code 415)
-
-(cond ((= area-code 415) (word 'san 'francisco))
-      ((= area-code 510) 'berkley)
-      (else 'whereyoufrom))
-
-(if (= area-code 415) (word 'san 'francisco)
-    (if (= area-code 510) 'berkley 'whereyoufrom))
-
-
-(and (= 3 3) (= 4 4))
-
-; (define (foo) (foo)) ; infinite loop: food that defines foo that defines foo...
-; (and (= 3 3) (foo))
-
-(define (foo) (foo)) ; no infinite loop because and breaks before
-(and (= 3 4) (foo))
-
 ;
 ; QUESTIONS
 ;
@@ -60,6 +15,7 @@
 (define (expt base power)
   (if (= power 0) 1 (* base (expt base (- power 1)))))
 
+(show 'expt)
 (expt 3 3)
 
 ; 2. I want to go up a flight of stairs that has n steps. I can either take 1 or 2 steps each
@@ -70,6 +26,7 @@
         ((= n 2) 2)
         (else (+ (count-stair-ways (- n 1)) (count-stair-ways (- n 2))))))
 
+(show 'count-stair-ways)
 (count-stair-ways 3) ; 2
 (count-stair-ways 4) ; 5
 (count-stair-ways 5) ; 8
@@ -88,6 +45,7 @@
   (if (or (= i 0) (empty? sent)) sent
       (subsent (bf sent) (- i 1))))
 
+(show 'subsent)
 (subsent '(6 4 2 7 5 8) 3); => (7 5 8)
 (subsent '() 1)
 
@@ -98,7 +56,7 @@
 ; reach (x, y) from the origin in this fashion (because, umm, my mother asked).
 ; Write count-ways that solves this for me.
 
-; didn't even attempt to solve on my own in code, only on paper,
+; [didn't even attempt] to solve on my own in code, only on paper,
 ; retyped the solution
 ; spent 4 hours understanding the solution, got a pretty good understanding, not 100% though
 
@@ -111,7 +69,26 @@
         ((and (= x 0) (= y 0)) 1)
         (else (+ (count-ways (- x 1) y) (count-ways x (- y 1))))))
 
+(show 'count-ways)
 ; (count-ways 1 1)
 (count-ways 2 2)
 (count-ways 3 3)
 
+
+; Define a procedure sum-of-sents that takes in two sentences and outputs a sentence
+; containing the sum of respective elements from both sentences. The sentences do not
+; have to be the same size!
+; [solution after looking at answer]
+; my solution did use first but I couldn't get how to sum up and invoke recursion at the same time
+
+(define (sum-of-sents sent-a sent-b)
+  ; (display sent-a)
+  ; (display sent-b)
+  (cond ((empty? sent-a) sent-b)
+        ((empty? sent-b) sent-a)
+        (else (sentence (+ (first sent-a) (first sent-b))
+                        (sum-of-sents (bf sent-a) (bf sent-b))))))
+
+(show 'sum-of-sents)
+(sum-of-sents '(1 2 3) '(6 3 9)); => (7 5 12)
+(sum-of-sents '(1 2 3 4 5) '(8 9)); => (9 11 3 4 5)
