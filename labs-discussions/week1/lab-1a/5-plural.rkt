@@ -1,5 +1,8 @@
 #lang simply-scheme
 
+; https://www-inst.eecs.berkeley.edu//~cs61a/su10/labs/lab1a.pdf
+; 5
+
 ; Modify the procedure so that it correctly handles cases like (plural ’boy).
 
 ; original

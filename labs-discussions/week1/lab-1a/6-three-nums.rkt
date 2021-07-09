@@ -1,15 +1,18 @@
 #lang simply-scheme
 
+; https://www-inst.eecs.berkeley.edu//~cs61a/su10/labs/lab1a.pdf
+; 6
+
 ; Define a procedure that takes three numbers as arguments and
 ; returns the sum of the squares of the two larger numbers.
 
 (define (square n) (* n n))
 
 (define (threesum x y z)
-  (display x)
-  (display y)
-  (display z)
-  (display '-)
+  ; (display x)
+  ; (display y)
+  ; (display z)
+  ; (display '-)
   (cond ((or (> x y) (> x z)) (+ (square x) (square (if (> y z) y z))))
         (else (+ (square y) (square z)))
         )

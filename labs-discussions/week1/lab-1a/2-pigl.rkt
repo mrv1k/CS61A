@@ -1,5 +1,8 @@
 #lang simply-scheme
 
+; https://www-inst.eecs.berkeley.edu//~cs61a/su10/labs/lab1a.pdf
+; 2
+
 (define (pigl wd)
   (if (pl-done? wd)
       (word wd 'ay)
