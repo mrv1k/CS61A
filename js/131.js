@@ -1,6 +1,6 @@
 // SICP JS 1.3.1
 
-// 1.32
+// 1.31
 // id = identity
 const id = x => x;
 const inc = x => x + 1;
@@ -33,7 +33,7 @@ function product_i(term, next, a, b) {
 }
 // product_i(id, inc, 1, 5);
 
-// 1.33
+// 1.32
 function accumulate_r(combiner, null_value, term, next, a, b) {
     const pre_acc = (a, b) => accumulate_r(combiner, null_value, term, next, a, b);
     return a > b ? null_value : combiner(term(a), pre_acc(next(a), b));
@@ -51,3 +51,14 @@ function accumulate_i(combiner, null_value, term, next, a, b) {
     return iter(a, null_value);
 }
 accumulate_i(mul, 1, id, inc, 1, 5);
+
+
+// 1.33
+function filtered_accumulate(combiner, null_value, term, a, next, b, filter) {
+    return a > b ?
+        null_value :
+        combiner(
+            filter(a) ? term(a) : null_value,
+            filtered_accumulate(
+                combiner, null_value, term, next(a), next, b, filter));
+}
